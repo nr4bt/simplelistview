@@ -48,6 +48,10 @@ public class SimpleListView extends LinearLayout {
      * Special item click listener in order to allow to user to take an action
      */
     private OnItemClickListener itemClickListener;
+    /**
+     * perform item long click
+     */
+    private OnItemLongClickListener itemLongClickListener;
 
     public SimpleListView(Context context) {
         this(context, null);
@@ -69,7 +73,9 @@ public class SimpleListView extends LinearLayout {
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }
-
+    public void setOnItemLongClickListener(OnItemLongClickListener listener){
+        this.itemLongClickListener = listener;
+    }
     public void setHeaderView(View view) {
         headerView = view;
     }
@@ -119,6 +125,15 @@ public class SimpleListView extends LinearLayout {
                     }
                 }
             });
+            if(itemLongClickListener != null){
+                view.setOnLongClickListener(new OnLongClickListener() {
+
+                    @Override
+                    public boolean onLongClick(View v) {
+                        return itemLongClickListener.onItemLongClick(adapter.getItem(position), view, position);
+                    }
+                });
+            }
             addView(view);
             if (dividerViewResourceId != INVALID && i != count - 1) {
                 addView(layoutInflater.inflate(dividerViewResourceId, this, false));
@@ -153,5 +168,9 @@ public class SimpleListView extends LinearLayout {
     public interface OnItemClickListener {
 
         void onItemClick(Object item, View view, int position);
+    }
+
+    public interface OnItemLongClickListener {
+        boolean onItemLongClick(Object item, View view, int position);
     }
 }
