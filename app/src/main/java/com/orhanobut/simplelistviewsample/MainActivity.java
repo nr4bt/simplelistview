@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.orhanobut.simplelistview.SimpleListView;
 
@@ -37,6 +38,16 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemClick(Object item, View view, int position) {
                 //
+                Toast.makeText(MainActivity.this, "Click position" + position, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new SimpleListView.OnItemLongClickListener(){
+
+            @Override
+            public boolean onItemLongClick(Object item, View view, int position) {
+                Toast.makeText(MainActivity.this, "Long Click position" + position, Toast.LENGTH_LONG).show();
+                return true;
             }
         });
         listView.setAdapter(adapter);
@@ -44,7 +55,6 @@ public class MainActivity extends ActionBarActivity {
         //It will refresh the listview
         adapter.notifyDataSetChanged();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -52,11 +52,22 @@ listView.setDividerView(R.layout.divider);
 listView.setOnItemClickListener(new SimpleListView.OnItemClickListener() { 
     @Override                                                              
     public void onItemClick(Object item, View view, int position) {        
-        //This special listener will return object for you                                                            
+        //This special listener will return object for you 
+         Toast.makeText(MainActivity.this, "Click position" + position, Toast.LENGTH_LONG).show();
     }                                                                      
 });
 ```
+##### Set item long click Listener
+```java
+listView.setOnItemLongClickListener(new SimpleListView.OnItemLongClickListener(){
 
+            @Override
+            public boolean onItemLongClick(Object item, View view, int position) {
+                Toast.makeText(MainActivity.this, "Long Click position" + position, Toast.LENGTH_LONG).show();
+                return true;//true if consumed the event,false otherwise
+            }
+        });
+```
 ##### Set adapter
 ```java
 listView.setAdapter(adapter);
